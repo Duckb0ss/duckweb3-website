@@ -20,11 +20,6 @@
       margin: 0;
     }
 
-    @font-face {
-      font-family: 'PixelFont'; 
-      src: url('fonts/10pixel-bold.ttf') format('truetype');
-    }
-
     /* 背景图样式 */
     .fullscreen-bg-img {
       position: fixed;
@@ -58,12 +53,21 @@
       box-sizing: border-box;
     }
 
-    .hero h1 {
+    /* 先定义字体 */
+    @font-face {
+      font-family: 'PixelFont';
+      src: url('./fonts/10pixel-bold.ttf') format('truetype');
+    }
+
+    /* 再使用字体 */
+    h1 {
+      /* height: 50px; （临时注释，避免高度遮挡字体） */
+      line-height: 1.2; /* 改为合理行高，替代 700px 避免文字被截断 */
+      text-align: center;
       margin: 0;
       font-size: 64px;
       font-family: 'PixelFont', sans-serif;
-      color: rgb(255, 255, 255);
-      line-height: 1.2;
+      color: #ffffff;
     }
 
     .first {
