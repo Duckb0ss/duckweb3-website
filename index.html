@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Web3.0 Home</title>
   <style>
+    /* 基础样式合并 */
     html, body {
       margin: 0;
       padding: 0;
@@ -17,7 +18,6 @@
       min-height: 200vh;
       position: relative;
       z-index: 1;
-      margin: 0;
     }
 
     /* 背景图样式 */
@@ -42,6 +42,7 @@
       font-size: 14px;
     }
 
+    /* 主区域样式 */
     .hero {
       height: 100vh;
       display: flex;
@@ -53,53 +54,43 @@
       box-sizing: border-box;
     }
 
-    /* 先定义字体 */
+    /* 字体定义：标题字体 + 按钮专属字体 */
     @font-face {
-      font-family: 'PixelFont';
+      font-family: 'PixelFont'; /* 标题专用 */
       src: url('./fonts/10pixel-bold.ttf') format('truetype');
     }
-
-    /* 再使用字体 */
-    h1 {
-      /* height: 50px; （临时注释，避免高度遮挡字体） */
-      line-height: 1.2; /* 改为合理行高，替代 700px 避免文字被截断 */
-      text-align: center;
+    @font-face {
+      font-family: 'lowFont'; /* 按钮文字专属字体 */
+      src: url('./fonts/BitcountGridDouble-Regular.ttf') format('truetype'); /* 按钮字体路径 */
+    }
+    @font-face {
+      font-family: 'ButtonFont'; /* 按钮文字专属字体 */
+      src: url('./fonts/BitcountGridDouble_Cursive-SemiBold.ttf') format('truetype'); /* 按钮字体路径 */
+    }
+    /* 标题样式 */
+    h1, .first {
       margin: 0;
-      font-size: 64px;
       font-family: 'PixelFont', sans-serif;
-      color: #ffffff;
+      color: #f6ffc2;
+    }
+
+    h1 {
+      line-height: 1;
+      font-size: 200px;
     }
 
     .first {
-      margin: 24px 0 0 0;
-      font-size: 32px;
-      color: #ffffff;
+      font-size: 100px;
       opacity: 0.9;
     }
 
-    /* 修复logo位置：精确控制定位和层级 */
-    .corner-img {
-      position: fixed; /* 固定定位，相对于视窗 */
-      bottom: 30px; /* 距离底部30px（调整为更稳定的数值） */
-      right: 30px; /* 距离右侧30px */
-      max-width: 80px; /* 固定最大宽度 */
-      max-height: 80px; /* 固定最大高度 */
-      width: auto; /* 保持宽高比 */
-      height: auto;
-      opacity: 0.9;
-      z-index: 10; /* 提高层级，确保不被其他元素遮挡 */
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-      box-sizing: border-box; /* 确保边框和内边距不影响位置 */
-    }
-
-    /* 加载失败样式 */
     .corner-img[alt="logo加载失败"] {
       border: 2px solid red;
       padding: 10px;
-      background: white;
+      background: rgb(255, 255, 255);
     }
 
+    /* 内容区域 */
     .content-area {
       padding: 80px 20px 40px;
       text-align: center;
@@ -109,31 +100,38 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 16px;
-      margin-bottom: 60px;
+      gap: 20px; /* 按钮间距同比放大 */
+      margin: 0 auto 60px;
       width: 100%;
-      max-width: 1000px;
-      margin-left: auto;
-      margin-right: auto;
+      max-width: 1200px; /* 容器最大宽度同步放大，避免按钮换行 */
     }
 
+    /* 按钮样式：同比放大按钮和字体 */
     .jump-btn {
-      display: inline-block;
-      padding: 12px 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 180px; /* 按钮宽度放大（原140px） */
+      padding: 18px 20px; /* 内边距放大（原14px 16px） */
       background-color: rgba(255, 255, 255, 0.9);
-      color: rgb(0, 0, 0);
-      font-size: 16px;
       text-decoration: none;
-      border-radius: 6px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-      transition: all 0.3s ease;
+      border-radius: 8px; /* 圆角同比放大 */
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3); /* 阴影略放大，保持协调 */
+      transition: all 0.4s ease;
+      
+      /* 按钮文字同比放大 */
+      font-family: 'buttonFont', sans-serif;
+      font-size: 40px; /* 字体大小放大（原18px） */
+      font-weight: 500;
+      color: #000000;
     }
 
     .jump-btn:hover {
       transform: scale(1.05);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
     }
 
+    /* 页脚样式 */
     .footer-section {
       padding: 40px 20px;
       text-align: center;
@@ -142,13 +140,14 @@
     }
 
     .sec {
-      margin: 16px 0;
-      font-size: 16px;
-      color: #000000;
+      margin:0;
+      font-size: 32px;
+      color: #160847;
+      font-family:'lowFont', sans-serif;
     }
 
     .sec a {
-      color: rgb(255, 255, 255);
+      color: #ffffff;
       text-decoration: none;
     }
 
@@ -156,29 +155,45 @@
       text-decoration: underline;
     }
 
+    /* 底部指示器动画 */
     .bottom-indicator {
       position: fixed;
-      bottom: 20px;
+      bottom: 40px;
       left: 50%;
       transform: translateX(-50%);
-      width: 60px;
+      width: 300px;
       height: 5px;
-      background-color: rgba(0, 0, 0, 0.3);
+      background-color: rgb(255, 255, 255);
       border-radius: 3px;
       pointer-events: none;
-      z-index: 15; /* 高于logo，避免遮挡 */
+      z-index: 15;
+      animation: shake 1.2s ease-in-out infinite;
     }
 
-    /* 响应式调整：确保小屏幕下位置正确 */
+    @keyframes shake {
+      0%, 100% { transform: translate(-50%, 0); }
+      50% { transform: translate(-50%, 4px); }
+    }
+
+    /* 响应式调整：同比放大小屏幕下的按钮和字体 */
     @media (max-width: 768px) {
-      .hero h1 {
+      h1 {
         font-size: 48px;
       }
       .corner-img {
-        max-width: 60px; /* 小屏幕缩小尺寸 */
+        max-width: 60px;
         max-height: 60px;
-        bottom: 20px; /* 小屏幕距离底部更近 */
-        right: 20px; /* 小屏幕距离右侧更近 */
+        bottom: 20px;
+        right: 20px;
+      }
+      .jump-btn {
+        min-width: 150px; /* 小屏幕按钮宽度（原120px） */
+        font-size: 18px; /* 小屏幕字体大小（原15px） */
+        padding: 15px 18px; /* 小屏幕内边距（原12px 14px） */
+      }
+      .btn-img {
+        width: 24px; /* 图标同比放大 */
+        height: 24px;
       }
     }
   </style>
@@ -193,22 +208,37 @@
   >
 
   <div class="hero">
-    <h1>Welcome Web3.0!</h1>
-    <p class="first">从这里开始你的加密之旅</p>
+    <h1>Welcome to Web3.0!</h1>
+    <p class="first">Hold every coin</p>
   </div>
 
   <div class="content-area">
     <div class="btn-container">
-      <a href="pages/一级界面/js-Okx.html" class="jump-btn">跳转到关于页面</a>
-      <a href="pages/一级界面/js-market.html" class="jump-btn">跳转到市场页面</a>
-      <a href="pages/一级界面/js-tools.html" class="jump-btn">跳转到工具页面</a>
-      <a href="pages/一级界面/js-guide.html" class="jump-btn">跳转到指南页面</a>
-      <a href="pages/一级界面/js-community.html" class="jump-btn">跳转到社区页面</a>
+      <!-- 按钮1：Learn -->
+      <a href="pages/一级界面/js-Okx.html" class="jump-btn">
+        Learn
+      </a>
+      <!-- 按钮2：Airdrop -->
+      <a href="pages/一级界面/js-market.html" class="jump-btn">
+        Airdrop
+      </a>
+      <!-- 按钮3：News -->
+      <a href="pages/一级界面/js-tools.html" class="jump-btn">
+        News
+      </a>
+      <!-- 按钮4：Bourse -->
+      <a href="pages/一级界面/js-guide.html" class="jump-btn">
+        Bourse
+      </a>
+      <!-- 按钮5：About -->
+      <a href="pages/一级界面/js-community.html" class="jump-btn">
+        About
+      </a>
     </div>
 
     <div class="footer-section">
-      <p class="sec">欢迎来到我的主页</p>
-      <p class="sec">想知道更多关于我的信息？<a href="pages/一级界面/about.html">点击这里了解更多</a></p>
+      <p class="sec">Committed to building a community where everyone holds 0.01 BTC</p>
+      <p class="sec">Would you like to join our team?<a href="pages/一级界面/about.html">Click here to learn more</a></p>
     </div>
   </div>
 
