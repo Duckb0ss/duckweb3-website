@@ -1,94 +1,213 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Web3.0 Home</title>
   <style>
     html, body {
-        height: auto;
-        min-height: 100vh;
-        overflow-x: hidden;
-        margin: 0;
-        padding: 0;
-      }
-
-      @font-face {
-    /* 加入像素字体 */
-      font-family: 'PixelFont'; 
-      src: url('./fonts/10pixel-bold.ttf') format('truetype');
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      font-family: sans-serif;
+      height: 100%;
     }
 
-    h1 {
-    /* “Welcome Web3.0!”字段格式 */
-      height:50px;
-      line-height:64px;
-      text-align:center; 
-      margin:0;
-      font-size:64px;
-      font-family:'PixelFont', sans-serif;
-      color:blue
+    body {
+      min-height: 200vh;
+      position: relative;
+      z-index: 1;
+      margin: 0;
+    }
+
+    @font-face {
+      font-family: 'PixelFont'; 
+      src: url('fonts/10pixel-bold.ttf') format('truetype');
+    }
+
+    /* 背景图样式 */
+    .fullscreen-bg-img {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      z-index: -1;
+    }
+
+    .fullscreen-bg-img[alt="背景图加载失败"] {
+      border: 2px solid red;
+      background: #f0f2f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: red;
+      font-size: 14px;
+    }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 64px;
+      font-family: 'PixelFont', sans-serif;
+      color: rgb(255, 255, 255);
+      line-height: 1.2;
     }
 
     .first {
-    /* “从这里开始你的加密之旅”字段格式 */
-      height:50px;
-      line-height:500px;
-      text-align:center; 
-      margin:0;
-      font-size:32px;
-      font-family:sans-serif
+      margin: 24px 0 0 0;
+      font-size: 32px;
+      color: #ffffff;
+      opacity: 0.9;
+    }
+
+    /* 修复logo位置：精确控制定位和层级 */
+    .corner-img {
+      position: fixed; /* 固定定位，相对于视窗 */
+      bottom: 30px; /* 距离底部30px（调整为更稳定的数值） */
+      right: 30px; /* 距离右侧30px */
+      max-width: 80px; /* 固定最大宽度 */
+      max-height: 80px; /* 固定最大高度 */
+      width: auto; /* 保持宽高比 */
+      height: auto;
+      opacity: 0.9;
+      z-index: 10; /* 提高层级，确保不被其他元素遮挡 */
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      box-sizing: border-box; /* 确保边框和内边距不影响位置 */
+    }
+
+    /* 加载失败样式 */
+    .corner-img[alt="logo加载失败"] {
+      border: 2px solid red;
+      padding: 10px;
+      background: white;
+    }
+
+    .content-area {
+      padding: 80px 20px 40px;
+      text-align: center;
+    }
+
+    .btn-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 60px;
+      width: 100%;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .jump-btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: rgba(255, 255, 255, 0.9);
+      color: rgb(0, 0, 0);
+      font-size: 16px;
+      text-decoration: none;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .jump-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .footer-section {
+      padding: 40px 20px;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      margin-top: 40px;
     }
 
     .sec {
-    /* “欢迎来到我的主页”字段格式 */
-      height:50px;
-      line-height:800px;
-      text-align:center;
-      margin:0;
-      font-size:16px;
-      font-family:sans-serif
+      margin: 16px 0;
+      font-size: 16px;
+      color: #000000;
     }
 
-    /* 按钮基础样式 + 阴影效果 */
-.jump-btn {
-  /* 按钮外观 */
-  display: inline-block; /* 让按钮能设置宽高和内外边距 */
-  padding: 12px 24px; /* 按钮内边距（上下 12px，左右 24px） */
-  background-color: #ffffff; /* 按钮背景色（绿色，可自定义） */
-  color: rgb(0, 0, 0); /* 文字颜色 */
-  font-size: 16px; /* 文字大小 */
-  text-decoration: none; /* 去掉链接默认下划线 */
-  border-radius: 6px; /* 圆角（让按钮更圆润） */
+    .sec a {
+      color: rgb(255, 255, 255);
+      text-decoration: none;
+    }
 
-  /* 阴影效果（核心：和主界面产生层次感） */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 水平偏移 0，垂直偏移 4px，模糊 8px，黑色半透明阴影 */
+    .sec a:hover {
+      text-decoration: underline;
+    }
 
-  /* 过渡动画（让悬浮变大时更平滑，不突兀） */
-  transition: all 0.3s ease; /* 所有样式变化在 0.3 秒内完成，速度曲线为 ease */
-}
+    .bottom-indicator {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 5px;
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: 3px;
+      pointer-events: none;
+      z-index: 15; /* 高于logo，避免遮挡 */
+    }
 
-/* 鼠标悬浮时的样式（变大效果） */
-.jump-btn:hover {
-  transform: scale(1.05); /* 放大 5%（1.05 表示原大小的 105%） */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* 悬浮时阴影加深，增强立体感 */
-}
+    /* 响应式调整：确保小屏幕下位置正确 */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 48px;
+      }
+      .corner-img {
+        max-width: 60px; /* 小屏幕缩小尺寸 */
+        max-height: 60px;
+        bottom: 20px; /* 小屏幕距离底部更近 */
+        right: 20px; /* 小屏幕距离右侧更近 */
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>Welcome Web3.0!</h1>
-  <p class="first">从这里开始你的加密之旅</p>
-  <a href="pages\一级界面\js-Okx.html" class="jump-btn">跳转到关于页面</a>
-</body>
-</html>
+  <!-- 背景图 -->
+  <img 
+    class="fullscreen-bg-img" 
+    src="images\背景图.jpg" 
+    alt="Web3背景图" 
+    onerror="this.alt='背景图加载失败'"
+  >
 
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>我的主页</title>
-</head>
-<body>
-  <p class="sec">欢迎来到我的主页</p>
-  <!-- 跳转链接：点击“了解更多”会打开 about.html -->
-  <p class="sec">想知道更多关于我的信息？<a href="pages\一级界面\about.html">点击这里了解更多</a></p>
+  <div class="hero">
+    <h1>Welcome Web3.0!</h1>
+    <p class="first">从这里开始你的加密之旅</p>
+  </div>
+
+  <div class="content-area">
+    <div class="btn-container">
+      <a href="pages/一级界面/js-Okx.html" class="jump-btn">跳转到关于页面</a>
+      <a href="pages/一级界面/js-market.html" class="jump-btn">跳转到市场页面</a>
+      <a href="pages/一级界面/js-tools.html" class="jump-btn">跳转到工具页面</a>
+      <a href="pages/一级界面/js-guide.html" class="jump-btn">跳转到指南页面</a>
+      <a href="pages/一级界面/js-community.html" class="jump-btn">跳转到社区页面</a>
+    </div>
+
+    <div class="footer-section">
+      <p class="sec">欢迎来到我的主页</p>
+      <p class="sec">想知道更多关于我的信息？<a href="pages/一级界面/about.html">点击这里了解更多</a></p>
+    </div>
+  </div>
+
+  <div class="bottom-indicator"></div>
 </body>
 </html>
